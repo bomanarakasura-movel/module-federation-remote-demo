@@ -1,0 +1,10 @@
+{
+  "latestErrorEvent": {
+    "code": "TYPE-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"/Users/bomanarakasura/.nvm/versions/node/v24.14.0/bin/node /Users/bomanarakasura/Sved/movel/labs/module-fe-lab/remote-module/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/bin/tsc --project /Users/bomanarakasura/Sved/movel/labs/module-fe-lab/remote-module/node_modules/.federation/tsconfig.941537076c5b53296f25f5b984e37447.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "args": {
+      "cmd": "/Users/bomanarakasura/.nvm/versions/node/v24.14.0/bin/node /Users/bomanarakasura/Sved/movel/labs/module-fe-lab/remote-module/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/bin/tsc --project /Users/bomanarakasura/Sved/movel/labs/module-fe-lab/remote-module/node_modules/.federation/tsconfig.941537076c5b53296f25f5b984e37447.json"
+    },
+    "timestamp": 1787834135947
+  }
+}
