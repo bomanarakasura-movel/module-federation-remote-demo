@@ -1,33 +1,46 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import { federation } from '@module-federation/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { federation } from "@module-federation/vite";
 
-// https://vite.dev/config/
 export default defineConfig({
-  // base: "/module-federation-remote-demo/",
   plugins: [
     react(),
     federation({
-      name: 'counterRemote',
-      filename: 'remoteEntry.js',
+      name: "counterRemote",
+      filename: "remoteEntry.js",
       exposes: {
-        './CounterWidget': './src/components/CounterWidget.tsx',
+        "./CounterWidget": "./src/components/CounterWidget.tsx",
       },
       shared: {
-        react: { singleton: true },
-        'react-dom': { singleton: true },
+        react: { singleton: true, requiredVersion: "^18.2.0" },
+        "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
+        "react/jsx-runtime": { singleton: true },
+        "react-dom/client": { singleton: true },
       },
       dts: {
-        // Solution-style root tsconfig has no compilerOptions; use app config
-        // so the DTS generator knows about JSX and CSS modules.
-        tsConfigPath: './tsconfig.app.json',
+        generateTypes: {
+          // tsconfig auto-generate dts-plugin default cuma extend
+          // tsconfig.json root (project references saja, tanpa jsx flag
+          // & tanpa "include": ["src"] yang membawa ambient types
+          // vite-env.d.ts utk CSS modules). Arahkan eksplisit ke config
+          // app yang benar-benar punya compilerOptions.jsx + include src.
+          tsConfigPath: "./tsconfig.app.json",
+        },
       },
     }),
   ],
   build: {
-    target: 'esnext',
+    target: "esnext",
+    // Kalau nanti di-deploy TIDAK di root domain (misal https://domain.com/remote/),
+    // wajib diisi supaya reference asset di dalam remoteEntry.js benar:
+    // base: 'https://domain.com/remote/',
   },
   server: {
     port: 5001,
+    cors: true, // wajib: host (origin lain) fetch remoteEntry.js saat dev
   },
-})
+  preview: {
+    port: 5001,
+    cors: true,
+  },
+});
